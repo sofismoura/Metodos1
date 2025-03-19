@@ -1,0 +1,115 @@
+package com.mycompany.calculadora2;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.border.EmptyBorder;
+
+public class Calculadora2 extends JFrame {
+    JLabel rotulo1, rotulo2, exibir;
+    JTextField texto1, texto2;
+    JButton somar, subtrair, dividir, multiplicar, sair;
+
+    public Calculadora2() {
+        super("Janela de Operações");
+        Container tela = getContentPane();
+        setLayout(null);
+
+        rotulo1 = new JLabel("Digite o 1° número: ");
+        rotulo2 = new JLabel("Digite o 2° número: ");
+        texto1 = new JTextField(5);
+        texto2 = new JTextField(5);
+        exibir = new JLabel("");
+        somar = new JButton("Somar");
+        subtrair = new JButton("Subtrair");
+        dividir = new JButton("Divisão");
+        multiplicar = new JButton("Multiplicar");
+        sair = new JButton("Sair");
+
+        JButton[] botoes = {somar, subtrair, dividir, multiplicar, sair};
+        for (JButton botao : botoes) {
+            botao.setBorder(new EmptyBorder(0, 0, 0, 0));
+            botao.setFocusPainted(false);
+            botao.setBackground(new Color(200, 220, 180)); // Verde pastel
+            botao.setForeground(Color.BLACK);
+        }
+
+        rotulo1.setBounds(50, 20, 100, 20);
+        rotulo2.setBounds(50, 60, 100, 20);
+        texto1.setBounds(120, 20, 390, 20);
+        texto2.setBounds(120, 60, 390, 20);
+        exibir.setBounds(50, 150, 200, 20);
+        somar.setBounds(50, 100, 100, 30);
+        subtrair.setBounds(160, 100, 100, 30);
+        dividir.setBounds(270, 100, 100, 30);
+        multiplicar.setBounds(380, 100, 120, 30);
+        sair.setBounds(210, 170, 120, 30);
+
+        tela.setBackground(new Color(240, 230, 200)); // Amarelo pastel
+        texto1.setBackground(new Color(200, 220, 250)); // Azul pastel
+        texto2.setBackground(new Color(200, 220, 250)); // Azul pastel
+
+        somar.addActionListener(e -> executarOperacao("soma"));
+        subtrair.addActionListener(e -> executarOperacao("subtracao"));
+        dividir.addActionListener(e -> executarOperacao("divisao"));
+        multiplicar.addActionListener(e -> executarOperacao("multiplicacao"));
+        sair.addActionListener(e -> System.exit(0));
+
+        exibir.setVisible(false);
+        tela.add(rotulo1);
+        tela.add(rotulo2);
+        tela.add(texto1);
+        tela.add(texto2);
+        tela.add(exibir);
+        tela.add(somar);
+        tela.add(subtrair);
+        tela.add(dividir);
+        tela.add(multiplicar);
+        tela.add(sair);
+
+        setSize(575, 260);
+        setResizable(false);
+        setVisible(true);
+    }
+
+    private void executarOperacao(String operacao) {
+        try {
+            double n1 = Double.parseDouble(texto1.getText());
+            double n2 = Double.parseDouble(texto2.getText());
+            double resultado = 0;
+
+            switch (operacao) {
+                case "soma":
+                    resultado = soma(n1, n2);
+                    exibir.setText("A soma é: " + resultado);
+                    break;
+                case "subtracao":
+                    resultado = subtracao(n1, n2);
+                    exibir.setText("A subtração é: " + resultado);
+                    break;
+                case "divisao":
+                    resultado = divisao(n1, n2);
+                    exibir.setText(n2 != 0 ? "A divisão é: " + resultado : "Erro: Divisão por zero!");
+                    break;
+                case "multiplicacao":
+                    resultado = multiplicacao(n1, n2);
+                    exibir.setText("A multiplicação é: " + resultado);
+                    break;
+            }
+
+            exibir.setVisible(true);
+        } catch (NumberFormatException e) {
+            exibir.setText("Erro: Entrada inválida!");
+            exibir.setVisible(true);
+        }
+    }
+
+    public static double soma(double a, double b) { return a + b; }
+    public static double subtracao(double a, double b) { return a - b; }
+    public static double divisao(double a, double b) { return b != 0 ? a / b : Double.NaN; }
+    public static double multiplicacao(double a, double b) { return a * b; }
+
+    public static void main(String args[]) {
+        Atividade2 app = new Atividade2();
+        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+}
