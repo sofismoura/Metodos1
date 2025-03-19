@@ -109,7 +109,7 @@ public class Calculadora2 extends JFrame {
     public static double multiplicacao(double a, double b) { return a * b; }
 
     public static void main(String args[]) {
-        Atividade2 app = new Atividade2();
+        Calculadora2 app = new Calculadora2();
         app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
